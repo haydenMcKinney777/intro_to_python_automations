@@ -39,5 +39,3 @@ def main():
   print(driver.current_url)
 
 print(main())
-
-#end
