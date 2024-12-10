@@ -1,5 +1,6 @@
 from selenium import webdriver
-import time
+from selenium.webdriver.support.ui import WebDriverWait 
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
 """
@@ -27,7 +28,7 @@ def get_driver():
  
 def main():
   driver = get_driver()
-  time.sleep(3)        #the dynamic value takes about 2-3 seconds to load onto the html page, so we do not want to scrape the page until after that value has loaded in.
+  WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, "id_username")))                #tells the driver to wait a maximum of 5 seconds, or until the username field has been located. 
   element = driver.find_element(By.XPATH, value="/html/body/div[1]/div/h1[2]")      #driver.find_element() returns a WebElement object, which we are then assigning to our variable called 'element' (that's where the .text field comes from)
   return element.text
  
