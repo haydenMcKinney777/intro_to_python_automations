@@ -4,16 +4,6 @@ from selenium.webdriver.common.keys import Keys             #used in this scenar
 from selenium.webdriver.support.ui import WebDriverWait     #this replaces time.sleep. using webdriverwait is more time efficient
 from selenium.webdriver.support import expected_conditions as EC
 
-"""
-below we are setting options to make browsing easier. 
-disable infobars means ignoring things such as nav bars on an html file
-start maximized means that the page we are scraping gets maximized, since sometimes web content gets hidden when browser is resized
-disable dev shm is related to linux
-no sandbox gives our script greater privileges on pages
-the experimental options we added is to help our scripts not be detected by web pages
-
-analogy: think of the driver as a remote control for a web page, and the python script is the one pushing the controller buttons
-"""
 def get_driver():
   options = webdriver.EdgeOptions()
   options.add_argument("disable-infobars")
@@ -30,12 +20,13 @@ def get_driver():
 def main():
   driver = get_driver()
 
-  WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, "id_username")))                #tells the driver to wait a maximum of 5 seconds, or until the username field has been located. 
-  driver.find_element(By.ID, value="id_username").send_keys("automated")                                #find the 'username' field on the login page by its ID, and send the keyboard keys "automated" which will be used to fill the text box (the username is automated and pw is automatedautomated)
-  driver.find_element(By.ID, value="id_password").send_keys("automatedautomated" + Keys.RETURN)         #enter the password and press enter
-  
-  WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH, "/html/body/nav/div/a")))
-  driver.find_element(By.XPATH, value="/html/body/nav/div/a").click()   #click the home link
-  print(driver.current_url)
+  WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, "id_username"))).send_keys("automated") #fill out user and password, then click enter
+  driver.find_element(By.ID, "id_password").send_keys("automatedautomated" + Keys.RETURN)
+
+  WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "/html/body/div[1]/h1[2]")))
+  avg_temp = driver.find_element(By.XPATH, "/html/body/div[1]/h1[2]")
+  return avg_temp.text
+
+
 
 print(main())
