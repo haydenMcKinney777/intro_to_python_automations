@@ -14,18 +14,25 @@ def get_driver():
   options.add_argument("disable-blink-features=AutomationControlled")
  
   driver = webdriver.Edge(options=options)                      #the driver is responsible for launching the browser and controlling it, and allows us to use methods like find_elements() etc.
-  driver.get("http://automated.pythonanywhere.com/login/")      #loads the web page to prepare it for scraping
+  driver.get("http://automated.pythonanywhere.com")             #loads the web page to prepare it for scraping
   return driver
  
 def main():
   driver = get_driver()
+  try:
+    WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH, "/html/body/nav/div/div/div/a")))
+    driver.find_element(By.XPATH, "/html/body/nav/div/div/div/a").click()                                         #click the login button
+    WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, "id_username"))).send_keys("automated") #fill out user and password, then click enter
+    driver.find_element(By.ID, "id_password").send_keys("automatedautomated" + Keys.RETURN)
 
-  WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, "id_username"))).send_keys("automated") #fill out user and password, then click enter
-  driver.find_element(By.ID, "id_password").send_keys("automatedautomated" + Keys.RETURN)
-
-  WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "/html/body/div[1]/h1[2]")))
-  avg_temp = driver.find_element(By.XPATH, "/html/body/div[1]/h1[2]")
-  return avg_temp.text
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, "text-success")))
+    avg_temp = driver.find_element(By.CLASS_NAME, "text-success").text
+    return avg_temp
+  except Exception as e:
+    print(f"Exception occured: {e}")
+    return None
+  finally:
+    driver.quit()
 
 
 
