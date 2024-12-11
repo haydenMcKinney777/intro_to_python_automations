@@ -1,6 +1,7 @@
 """
 EXERCISE 1: Click login button, login, scrape the dynamic data and output it. 
             Also, write a new .txt file for each time the dynamic data updates, naming each text file with the current date and time.
+            In this case, I make 10 new files.
 """
 
 from selenium import webdriver
