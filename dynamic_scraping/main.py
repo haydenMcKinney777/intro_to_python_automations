@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait 
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+import time
 
 """
 below we are setting options to make browsing easier. 
@@ -28,8 +29,15 @@ def get_driver():
  
 def main():
   driver = get_driver()
-  WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, "id_username")))                #tells the driver to wait a maximum of 5 seconds, or until the username field has been located. 
-  element = driver.find_element(By.XPATH, value="/html/body/div[1]/div/h1[2]")      #driver.find_element() returns a WebElement object, which we are then assigning to our variable called 'element' (that's where the .text field comes from)
-  return element.text
+  try:
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, "text-success")))
+    avg_temp = driver.find_element(By.CLASS_NAME, "text-success")
+    print(driver.current_url)
+    return avg_temp.text
+  except Exception as e:
+    print(f"An error occurred: {e}")
+    return None
+  finally:
+    driver.quit()
  
 print(main())

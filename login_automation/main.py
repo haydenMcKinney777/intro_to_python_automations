@@ -28,14 +28,20 @@ def get_driver():
   return driver
  
 def main():
-  driver = get_driver()
+    driver = get_driver()
+    try:
+        WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, "id_username")))
+        driver.find_element(By.ID, value="id_username").send_keys("automated")
+        driver.find_element(By.ID, value="id_password").send_keys("automatedautomated" + Keys.RETURN)
 
-  WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, "id_username")))                #tells the driver to wait a maximum of 5 seconds, or until the username field has been located. 
-  driver.find_element(By.ID, value="id_username").send_keys("automated")                                #find the 'username' field on the login page by its ID, and send the keyboard keys "automated" which will be used to fill the text box (the username is automated and pw is automatedautomated)
-  driver.find_element(By.ID, value="id_password").send_keys("automatedautomated" + Keys.RETURN)         #enter the password and press enter
-  
-  WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH, "/html/body/nav/div/a")))
-  driver.find_element(By.XPATH, value="/html/body/nav/div/a").click()   #click the home link
-  print(driver.current_url)
+        WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH, "/html/body/nav/div/a")))
+        driver.find_element(By.XPATH, value="/html/body/nav/div/a").click()
+        return driver.current_url
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return None
+    finally:
+        driver.quit()
 
 print(main())
+print("Login Successful.\n")
