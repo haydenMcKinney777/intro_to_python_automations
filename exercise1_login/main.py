@@ -4,6 +4,8 @@ NEWSAPI: this file shows how we can simply use news API to gather information fr
          is for us to tell it specifically what parameters we want the API to search for. For example, if we 
          wanted news articles with the words "exercise" or "stock prices" in the title, we would add a 
          qInTitle parameter to the end of the link. At the end of the URL we add our API key.
+
+FUTURE TO-DO: store the outputted information into a new .csv file.
 """
 
 import requests
