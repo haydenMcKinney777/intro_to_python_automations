@@ -8,7 +8,7 @@ NEWSAPI: this file shows how we can simply use news API to gather information fr
 
 import requests
 
-r = requests.get("https://newsapi.org/v2/everything?qInTitle=Elon%20Musk&apiKey=50ae6f8dd35c4e86bd73945f2b845548")      #GET requests return data in JSON format
+r = requests.get("https://newsapi.org/v2/everything?qInTitle=Black%20Ops%206&apiKey=50ae6f8dd35c4e86bd73945f2b845548")      #GET requests return data in JSON format
 
 print(r.headers['Content-Type'])                                                                                        #simply print statement to verify that our GET request returns data in JSON format
 
@@ -18,3 +18,5 @@ articles = content['articles']                                                  
 
 for article in articles:
     print("\nTITLE: ", article['title'], "\nDESCRIPTION:\n", article['description'], "\nPUBLISHED AT:\n", article['publishedAt'])
+
+print(articles)
