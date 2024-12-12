@@ -1,19 +1,20 @@
 """
-BEAUTIFUL SOUP: beautiful soup is a library for web scraping, while selenium is a hybrid between
-                web scraping and browser automation. in this file i will learn how to use beautiful
-                soup to scrape web data from a currency exchange rate website.
+NEWSAPI: this file shows how we can simply use news API to gather information from news articles online.
+         all we do is make a request to 'https://newsapi.org/v2/everything'. Everything added onto this URL
+         is for us to tell it specifically what parameters we want the API to search for. For example, if we 
+         wanted news articles with the words "exercise" or "stock prices" in the title, we would add a 
+         qInTitle parameter to the end of the link. At the end of the URL we add our API key.
 """
 
-from bs4 import BeautifulSoup
 import requests
 
-def get_currency(input_currency, output_currency):
-    url = f"https://www.x-rates.com/calculator/?from={input_currency}&to={output_currency}&amount=1"
-    content = requests.get(url).text                                                                 #requests.get(url) will return the status of the GET request. but if we add .text at the end, we get the source code for the html page, since that is obviously what would be replied with in a GET request
-    soup = BeautifulSoup(content, "html.parser")                                                     #we create an instance of BeautifulSoup called 'soup' which expects a page's markup (held in content) and we also tell it we want to use an html parser which will be used to parse through the markup code for the <span> element that holds the number for the exchange rate on the webpage.
-    rate = soup.find("span", class_="ccOutputRslt").get_text()                                       #the element on the webpage that holds the exchange rate is a span with a class of 'ccOutputRslt'. If we do not include .get_text() at the end, beautiful soup will return the markup for the span in which the currency rate number lives inside, as well as all child elements of the span class. Adding .get_text() ensures we only grab the exchange rate number with its related tag (USD, AUD, etc). Note that this value will be a string
-    currency = float(rate[0:8])                                                                      #this makes sure we only grab the number of the exchange rate, only grabbing the string between index 0 and 8. This value is still a string, so we convert it to a float in this same step as well.
+r = requests.get("https://newsapi.org/v2/everything?qInTitle=Elon%20Musk&apiKey=50ae6f8dd35c4e86bd73945f2b845548")      #GET requests return data in JSON format
 
-    return currency
+print(r.headers['Content-Type'])                                                                                        #simply print statement to verify that our GET request returns data in JSON format
 
-print(get_currency('INR', 'AUD'))
+content = r.json()                                                                                                      #turns the json data given by our get request into a python dictionary full of the json data
+
+articles = content['articles']                                                                                          #here we are accessing the dictionary that we created and we are grouping all of the articles into a variable. articles is a dictionary itself, which contains more lists and dictionaries. with this, we are able to access all of the information that we want to from the news stories that the API gathers, such as the titles of each articles, descriptions of them, etc. 
+
+for article in articles:
+    print("\nTITLE: ", article['title'], "\nDESCRIPTION:\n", article['description'], "\nPUBLISHED AT:\n", article['publishedAt'])
