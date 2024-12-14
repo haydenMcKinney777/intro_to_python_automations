@@ -5,6 +5,8 @@ NEWSAPI: this file shows how we can simply use news API to gather information fr
          wanted news articles with the words "exercise" or "stock prices" in the title, we would add a 
          qInTitle parameter to the end of the link. At the end of the URL we add our API key.
 
+         documentation for what can be used in the links can be found at https://newsapi.org/docs/endpoints/everything
+
 FUTURE TO-DO: store the outputted information into a new .csv file.
 """
 
@@ -17,8 +19,8 @@ import requests
 # for article in articles:
 #     print("\nTITLE: ", article['title'], "\nDESCRIPTION:\n", article['description'], "\nPUBLISHED AT:\n", article['publishedAt'])
 
-def get_news(topic, from_date, to_date, language='en', api_key='50ae6f8dd35c4e86bd73945f2b845548'):
-    url = f'https://newsapi.org/v2/everything?qInTitle={topic}&from={from_date}&to={to_date}&sortBy=popularity&language={language}&apiKey={api_key}'
+def get_news(country, api_key='50ae6f8dd35c4e86bd73945f2b845548'):
+    url = f'https://newsapi.org/v2/top-headlines?country={country}&apiKey={api_key}'
     r = requests.get(url)
     content = r.json()
     articles = content['articles']
@@ -27,4 +29,4 @@ def get_news(topic, from_date, to_date, language='en', api_key='50ae6f8dd35c4e86
         results.append(f"\nTITLE: {article['title']}\nDESCRIPTION: {article['description']}")
     return results
 
-print("\n".join(get_news(topic='space', from_date='2024-11-20', to_date='2022-12-12')))
+print(get_news('us'))
