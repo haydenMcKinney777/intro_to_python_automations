@@ -2,6 +2,9 @@
 WEATHER FORECAST: here we use weatherforecastAPI to grab weather data from a city that the user
                   will provide to the program. for documentation or to view the JSON format used
                   by the api, visit https://openweathermap.org/forecast5
+
+                  This code will grab weather data from the provided city, and append it to a .txt
+                  file "data.txt" which has column for city, time, temperature, and condition.
 """
 
 import requests
