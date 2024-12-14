@@ -1,11 +1,13 @@
 """
-WEATHER FORECAST: 
+WEATHER FORECAST: here we use weatherforecastAPI to grab weather data from a city that the user
+                  will provide to the program. for documentation or to view the JSON format used
+                  by the api, visit https://openweathermap.org/forecast5
 """
 
 import requests
 
 def get_weather(city, api_key="1fa676ddb6c81cca2ef15f0c56cb2ebc"):
-    url = f"http://api.openweathermap.org/data/2.5/forecast?q={city}&appid={api_key}"
+    url = f"http://api.openweathermap.org/data/2.5/forecast?q={city}&appid={api_key}"           #more data can be accessed by modifying this url
     response = requests.get(url)
     content = response.json()
     weather_types = content["list"]
