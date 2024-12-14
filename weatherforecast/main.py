@@ -16,7 +16,7 @@ def get_weather(city, api_key="1fa676ddb6c81cca2ef15f0c56cb2ebc"):
     weather_types = content["list"]
     city_name = content["city"]["name"]
     with open("./data.txt", "a") as file:
-        for weather_list in weather_types:
+        for weather_list in weather_types:                                                      #weather_types is everything inside the 'list' dictionary within the API
             temperature = weather_list["main"]["temp"]
             datetime_text = weather_list["dt_txt"]
             condition = weather_list["weather"][0]["description"]
