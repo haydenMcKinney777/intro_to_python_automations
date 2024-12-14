@@ -26,7 +26,7 @@ def get_news(country, api_key='50ae6f8dd35c4e86bd73945f2b845548'):
     articles = content['articles']
     results = []
     for article in articles:
-        results.append(f"\nTITLE: {article['title']}\nDESCRIPTION: {article['description']}")
+        results.append(f"\nTITLE: {article['title']}")
     return results
 
-print(get_news('us'))
+print("\n".join(get_news('us')))
