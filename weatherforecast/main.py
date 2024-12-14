@@ -5,12 +5,15 @@ WEATHER FORECAST: here we use weatherforecastAPI to grab weather data from a cit
 
                   This code will grab weather data from the provided city, and append it to a .txt
                   file "data.txt" which has column for city, time, temperature, and condition.
+                  Note that the data.txt file has a newline character after the first and only written
+                  line in the file. This is there so that when data gets appended to the file, it will
+                  be properly formatted.
 """
 
 import requests
 
-def get_weather(city, api_key="1fa676ddb6c81cca2ef15f0c56cb2ebc"):
-    url = f"http://api.openweathermap.org/data/2.5/forecast?q={city}&appid={api_key}"           #more data can be accessed by modifying this url
+def get_weather(city, units='imperial', api_key="1fa676ddb6c81cca2ef15f0c56cb2ebc"):
+    url = f"http://api.openweathermap.org/data/2.5/forecast?q={city}&units={units}&appid={api_key}"           #more data can be accessed by modifying this url
     response = requests.get(url)
     content = response.json()
     weather_types = content["list"]
