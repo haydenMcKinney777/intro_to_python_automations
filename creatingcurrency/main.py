@@ -1,4 +1,13 @@
-from flask import Flask
+"""
+Creating Currency: this file creates a simply web app using flask
+                   that will use the code we made in the beautiful soup branch to scrape a currency exchange
+                   rate from x-rates.com using REST API. Once the web app has been launched, the user may supply different
+                   currency codes within the URL such as USD-EUR or EUR-JPY etc to grab the exchange rate
+                   between the two currencies. The output is displayed on the page in JSON format.
+
+"""
+
+from flask import Flask, jsonify
 from bs4 import BeautifulSoup
 import requests
 
@@ -21,6 +30,8 @@ def home():
 
 @app.route('/api/v1/<input_currency>-<output_currency>')
 def api(input_currency, output_currency):
-    
+    rate = get_currency(input_currency, output_currency)
+    result_dictionary = {'input_currency':input_currency, 'output_currency':output_currency, 'rate':rate}
+    return jsonify(result_dictionary)
 
 app.run()
