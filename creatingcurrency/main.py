@@ -20,13 +20,11 @@ def get_currency(input_currency, output_currency):
 
     return currency
 
-print(get_currency('INR', 'AUD'))
+app = Flask(__name__)       #creating a Flask object. __name__ holds the string of the current module
 
-app = Flask(__name__)       #__name__ holds the string of the current module
-
-@app.route('/')
+@app.route('/')             #app.route maps a URL to a specific function. In this case, when the home page is visited, the function 'home' will execute since it immediate follows @app.route
 def home():
-    return f'<h1>Currency Rate API</h1> <p>Example URL: /api/v1/usd-eur</p>'
+    return f'<h1>Currency Rate API</h1> <p>Example URL (add this to the end of the current URL, replacing "usd" and "eur" with the currencies you would like): /api/v1/usd-eur</p>'
 
 @app.route('/api/v1/<input_currency>-<output_currency>')
 def api(input_currency, output_currency):
