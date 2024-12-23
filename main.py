@@ -21,8 +21,10 @@ receiver = os.getenv('email')           #my personal email
 subject = 'Test subject v1'
 email_body = """
 This is the content body of the email.
-This is also where information goes
-Python
+You can put whatever information you want here!
+
+this was an automated email sent by me.
+thanks for reading!
 """
 
 yag = yagmail.SMTP(user=sender, password=my_password)
