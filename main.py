@@ -1,7 +1,7 @@
 """
 sending emails periodically
 
-TO-DO: does 24 hour sleep work?
+TO-DO: does 24 hour sleep work? check out using servers to test this. see link: https://pythonhow.com/how/schedule-a-python-script-for-execution-at-a-specific-time-every-day/
 """
 
 import yagmail
