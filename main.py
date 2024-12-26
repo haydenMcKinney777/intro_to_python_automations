@@ -1,5 +1,7 @@
 """
 sending emails periodically
+
+TO-DO: does 24 hour sleep work?
 """
 
 import yagmail
