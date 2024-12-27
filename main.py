@@ -1,28 +1,25 @@
 """
-sending emails to contacts found within a CSV file
-
+Exercise 6: send email with attachment to a list of contacts in a CSV file
 """
 
+import pandas as pd
 import yagmail
 import os
-import pandas
 
-#accessing environment variables that i set up on my local machine to keep email and password safe.
-my_email = os.getenv('gmail_email')         
-my_password = os.getenv('app_password_gmail')
+df = pd.read_csv("./contacts.csv")
 
-sender = my_email
-subject = 'Automated email test'
-yag = yagmail.SMTP(user=sender, password=my_password)
+sender = os.getenv("gmail_email")
+password = os.getenv("app_password_gmail")
+yag = yagmail.SMTP(sender, password)
+subject = "Automated email with attachment"
 
-df = pandas.read_csv('contacts.csv')    #we use pandas to help us analyze our data in the csv file. 'df' = "dataframe"
 for index, row in df.iterrows():
-    email_body = f"""
-    Hi {row['name']}! This email has been automated using python.
-    
-    Thanks for reading! 
-    
-    -Python
-    """
-    yag.send(to=row['email'], subject=subject, contents=email_body)
-print("Email sent successfully.\n")
+    contents = [f"""Hello {row["name"]}! This is an automated email sent to you ({row['email']})
+              using python.
+              
+              This email has an attachment on it as well!
+              Thanks for reading.
+              """, "attachment.txt"]
+
+    yag.send(to=row['email'], subject=subject, contents=contents)
+print("Emails sent successfully")

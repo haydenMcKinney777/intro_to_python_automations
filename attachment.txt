@@ -1,0 +1,3 @@
+this is an attachment in .txt format
+this text file got added to the email
+as an attachment.
