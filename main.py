@@ -1,5 +1,5 @@
 """
-sending emails to contacts found within a CSV file
+sending emails including attachments, such as .txt files
 
 """
 
