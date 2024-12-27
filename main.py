@@ -7,17 +7,18 @@ import os
 import re      #for cleaning up text
 
 def get_driver():
-    options = webdriver.EdgeOptions()
-    options.add_argument("disable-infobars")
-    options.add_argument("start-maximized")
-    options.add_argument("disable-dev-shm-usage")
-    options.add_argument("no-sandbox")
-    options.add_experimental_option("excludeSwitches", ["enable-automation"])
-    options.add_argument("disable-blank-features = AutomationControlled")
+  options = webdriver.EdgeOptions()
+  options.add_argument("disable-infobars")
+  options.add_argument("start-maximized")
+  options.add_argument("disable-dev-shm-usage")
+  options.add_argument("no-sandbox")
+  options.add_experimental_option("excludeSwitches", ["enable-automation"])
+  options.add_argument("disable-blink-features=AutomationControlled")
+ 
+  driver = webdriver.Edge(options=options)              #the driver is responsible for launching the browser and controlling it, and allows us to use methods like find_elements() etc.
+  driver.get("https://zse.hr/en/indeks-366/365?isin=HRZB00ICBEX6")     #loads the web page to prepare it for scraping
+  return driver
 
-    driver = webdriver.Edge(options=options)
-    driver.get("https://zse.hr/en/indeks-366/365?isin=HRZB00ICBEX6")
-    return driver
 
 def send_email(percent):
     sender = os.getenv('gmail_email')
