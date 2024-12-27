@@ -1,34 +1,28 @@
 """
-sending emails periodically
+sending emails to contacts found within a CSV file
 
-TO-DO: does 24 hour sleep work? check out using servers to test this. see link: https://pythonhow.com/how/schedule-a-python-script-for-execution-at-a-specific-time-every-day/
 """
 
 import yagmail
 import os
-from datetime import datetime as dt
-import time
+import pandas
 
 #accessing environment variables that i set up on my local machine to keep email and password safe.
 my_email = os.getenv('gmail_email')         
 my_password = os.getenv('app_password_gmail')
 
 sender = my_email
-receiver = os.getenv('email')           #my personal email
-subject = 'Test subject v1'
-email_body = """
-This is the content body of the email.
-You can put whatever information you want here!
+subject = 'Automated email test'
+yag = yagmail.SMTP(user=sender, password=my_password)
 
-this was an automated email sent by me.
-thanks for reading!
-"""
-
-while True:
-    now = dt.now()
-    if now.hour == 13 and now.minute == 6:
-        yag = yagmail.SMTP(user=sender, password=my_password)
-        yag.send(to=receiver, subject=subject, contents=email_body)
-        print("Email sent successfully")
-        #yagmail cleans up itself automatically
-        time.sleep(60)       #sleep for 1 minute
+df = pandas.read_csv('contacts.csv')    #we use pandas to help us analyze our data in the csv file. 'df' = "dataframe"
+for index, row in df.iterrows():
+    email_body = f"""
+    Hi {row['name']}! This email has been automated using python.
+    
+    Thanks for reading! 
+    
+    -Python
+    """
+    yag.send(to=row['email'], subject=subject, contents=email_body)
+print("Email sent successfully.\n")
