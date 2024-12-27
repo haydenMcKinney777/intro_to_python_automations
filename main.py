@@ -24,6 +24,6 @@ Thanks for reading!
 
 -Python
 """, 'text.txt']                    #notice here we add text.txt to the list
-yag.send(to=row['email'], subject=subject, contents=email_body)
+yag.send(to=receiver, subject=subject, contents=email_body)
 
 print("Email sent successfully.\n")
