@@ -37,5 +37,6 @@ def main():
   WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH, "/html/body/nav/div/a")))
   driver.find_element(By.XPATH, value="/html/body/nav/div/a").click()   #click the home link
   print(driver.current_url)
+  driver.quit()
 
-print(main())
+main()
