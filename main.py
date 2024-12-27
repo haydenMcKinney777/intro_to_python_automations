@@ -14,6 +14,7 @@ def get_driver():
   options.add_argument("no-sandbox")
   options.add_experimental_option("excludeSwitches", ["enable-automation"])
   options.add_argument("disable-blink-features=AutomationControlled")
+  options.add_argument("log-level=3")
  
   driver = webdriver.Edge(options=options)              #the driver is responsible for launching the browser and controlling it, and allows us to use methods like find_elements() etc.
   driver.get("https://zse.hr/en/indeks-366/365?isin=HRZB00ICBEX6")     #loads the web page to prepare it for scraping
@@ -38,12 +39,9 @@ def main():
     try:
         WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, ".stock-trend.trend-drop")))
 
-        stock_percentage = driver.find_element(By.CSS_SELECTOR, ".stock-trend.trend-drop").text
-
+        stock_percentage = driver.find_element(By.XPATH, '//*[@id="app_indeks"]/section[1]/div/div/div[2]/span[2]').text
         cleaned_stock_percentage = float(re.sub(r"[^\d.-]", "", stock_percentage))     #\d = any decimal, . = literal dot, - = literal minus, ^ in square brackets is boolean NOT, so we're saying anything that is not a digit, dot, or minus sign, take it out
-
-        if cleaned_stock_percentage < -0.10:
-            send_email(cleaned_stock_percentage)
+        send_email(cleaned_stock_percentage)
     finally:
         driver.quit()
 
