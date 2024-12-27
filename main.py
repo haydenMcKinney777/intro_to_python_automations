@@ -25,11 +25,11 @@ def send_email(percent):
     receiver = os.getenv('email')
     yag = yagmail.SMTP(sender, password)
 
-    subject = "Stock Percentage Dropped Below -10.0%!"
+    subject = "Stock Percentage Dropped Below -0.10%!"
     contents = f"This email is to inform you that the stock price is now {percent}%!\n"
 
     yag.send(to=receiver, subject=subject, contents=contents)
-    print("Email sent.\n")
+    print("Email has been successfully sent.\n")
 
 
 def main():
@@ -41,7 +41,7 @@ def main():
 
         cleaned_stock_percentage = float(re.sub(r"[^\d.-]", "", stock_percentage))     #\d = any decimal, . = literal dot, - = literal minus, ^ in square brackets is boolean NOT, so we're saying anything that is not a digit, dot, or minus sign, take it out
 
-        if cleaned_stock_percentage < -10.0:
+        if cleaned_stock_percentage < -0.10:
             send_email(cleaned_stock_percentage)
     finally:
         driver.quit()
