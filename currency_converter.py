@@ -10,23 +10,35 @@ import json
 
 def search_word_def():
     user_word = textbox.text()
-    resulting_def = data[user_word]
+    if user_word in data:
+        matching_defs = data[user_word]                     #matching_defs will be a list of strings containing the definitions
+        formatted_defs = "\n".join(matching_defs)           #join each of the definition strings with a newline
+        resulting_def.setText(formatted_defs)               #display the definitions in the resulting_def output box at bottom of the GUI
+    else:
+        resulting_def.setText("Word definition not found.")
 
 app = QApplication([])                                              
 window = QWidget()                                                  
 window.setWindowTitle('Dictionary')
-layout = QHBoxLayout()                                              
+layout = QVBoxLayout()                                              
 
 file_json = open("./data.json")
 data = json.load(file_json)
 
+layout_top = QHBoxLayout()
+layout.addLayout(layout_top)
+
 instruction_text = QLabel("Enter a word for its definition:")
-layout.addWidget(instruction_text)
+layout_top.addWidget(instruction_text)
 
 textbox = QLineEdit()
-layout.addWidget(textbox)
+layout_top.addWidget(textbox)
+
+layout_bottom = QHBoxLayout()
+layout.addLayout(layout_bottom)
 
 resulting_def = QLabel('')
+layout_bottom.addWidget(resulting_def)
 
 search_button = QPushButton("Search")
 layout.addWidget(search_button)
