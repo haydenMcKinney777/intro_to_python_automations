@@ -42,7 +42,7 @@ layout.addWidget(destroy_button, alignment=Qt.AlignmentFlag.AlignCenter)
 destroy_button.clicked.connect(destroy_files)
 
 result_message = QLabel('')
-layout.addWidget(result_message)
+layout.addWidget(result_message, alignment=Qt.AlignmentFlag.AlignCenter)
 
 window.setLayout(layout)
 window.show()                                                       #without this we cannot see the window when the app runs
