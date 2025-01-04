@@ -11,9 +11,9 @@ import json
 def search_word_def():
     user_word = textbox.text()
     if user_word in data:
-        matching_defs = data[user_word]                     #matching_defs will be a list of strings containing the definitions
-        formatted_defs = "\n".join(matching_defs)           #join each of the definition strings with a newline
-        resulting_def.setText(formatted_defs)               #display the definitions in the resulting_def output box at bottom of the GUI
+        matching_defs = data[user_word]                                                                                #matching_defs will be a list of strings containing the definitions
+        formatted_defs = "\n".join([f"{i + 1}. {definition}" for i, definition in enumerate(matching_defs)])           #join each of the definition strings with a newline and a number
+        resulting_def.setText(formatted_defs)                                                                          #display the definitions in the resulting_def output box at bottom of the GUI
     else:
         resulting_def.setText("Word definition not found.")
 
