@@ -3,8 +3,7 @@ Create empty files
 """
 from pathlib import Path
 
-root_directory = Path('files')
-
+root_directory = Path('emptyfiles')
 
 for i in range(10,21):
     file_name = (f"{i}.txt")
