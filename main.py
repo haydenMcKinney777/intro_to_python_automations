@@ -57,3 +57,16 @@ try to use it again in another query, it is empty.
 #we can of course iterate through the contents in the results1 variable
 #for row in results1:
 #    print(row)
+
+
+
+
+#to insert new rows into a SQL database:
+# new_rows = [
+#     ('100.100.100.100', 'a.b.c', 100),
+#     ('200.200.200.200', 'd.e.f', 200)
+# ]
+# cur.executemany("INSERT INTO 'ips' VALUES(?,?,?)", new_rows)
+# con.commit()
+# cur.execute("SELECT * FROM 'ips'")
+# print(cur.fetchall())
